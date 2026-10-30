@@ -1,0 +1,18 @@
+{
+  "name": "gananciax",
+  "version": "1.0.0",
+  "description": "GananciaX",
+  "author": "GananciaX",
+  "main": "main.js",
+  "devDependencies": {
+    "electron": "^31.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.gananciax.desktop",
+    "productName": "GananciaX",
+    "artifactName": "GananciaX-Setup.${ext}",
+    "files": ["main.js", "app/**/*"],
+    "win": { "target": "nsis" }
+  }
+}

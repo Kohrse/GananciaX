@@ -1,0 +1,26 @@
+name: Construir app de Windows
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  win:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: mkdir -p desktop/app desktop/build && cp www/index.html desktop/app/index.html && cp assets/icon.png desktop/build/icon.png
+        shell: bash
+      - run: npm install
+        working-directory: desktop
+      - run: npx electron-builder --win --publish never
+        working-directory: desktop
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: win-${{ github.run_number }}
+          name: GananciaX Windows ${{ github.run_number }}
+          files: desktop/dist/GananciaX-Setup.exe
